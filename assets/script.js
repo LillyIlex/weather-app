@@ -29,11 +29,11 @@ $.ajax({
 }).then(function(response){
     console.log(response)
     var city 
-   /* var date = response.
+/* var date = response.
     var temp = response.
     var wind = response.0.list.wind
     var humidity = response.
-    var icon = response.0.weather.icon
+    var icon = response.0.weather.icon */
 })
 
 
