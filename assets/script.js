@@ -53,33 +53,55 @@ searchBtn.on("click", function (event) {
             var temp = response.list[0].main.temp;
             var wind = response.list[0].wind.speed;
             var humidity = response.list[0].main.humidity;
-            var icon = response.list[0].weather[0].icon;
-            // console.log(icon + date + wind + temp + humidity + cityName);
+            var icon = response.list[0].weather[0].description;
+          
+            //today's weather
+            $("#city").append(JSON.stringify(cityName));
+            $("#today-date").append(JSON.stringify(date));
+            $("#today-temp").append(JSON.stringify(temp - 273.15));
+            $("#today-wind").append(JSON.stringify(wind));
+            $("#today-humid").append(JSON.stringify(humidity));
+            $("#today-icon").append(JSON.stringify(icon));
+           // clear input for new search
+           //click event on search button to clear previous search results.
+
         })
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
 
+            var date = response.list[4].dt_txt;
+            var temp = response.list[4].main.temp;
+            var wind = response.list[4].wind.speed;
+            var humidity = response.list[4].main.humidity;
+            var icon = response.list[4].weather[4].description;
 
+            $("#day4-date").append(JSON.stringify(date));
+            $("#day4-temp").append(JSON.stringify(temp - 273.15));
+            $("#day4-wind").append(JSON.stringify(wind));
+            $("#day4-humid").append(JSON.stringify(humidity));
+            $("#day4-icon").append(JSON.stringify(icon));
+        })
     })
-
-    //append previous searches into buttons;
-   /* $("#search-button").on("click", function (event) {
-        event.preventDefault();
-        localStorage.setItem("city", cityResults);
-        //for loop?
-        $(function () {
-
-            $("#1").val(localStorage.getItem("city"));
-            $("#2.innerHTML").val(localStorage.getItem("city"));
-            $("#3.innerHTML").val(localStorage.getItem("city"));
-            $("#4.innerHTML").val(localStorage.getItem("city"));
-            $("#5.innerHTML").val(localStorage.getItem("city"));
-
-        });
-    }) */
-
 })
 
 
-//var cityName = $(".card-title")
-// append text input with innerHTML
+    //append previous searches into buttons;
 
-//append previous searches into buttons;
+ $("#search-button").on("click", function (event) {
+     event.preventDefault();
+     cityResults = $("#search-input").val()
+
+     for ( i = 0; i < cityResults.length; i++) {
+     localStorage.setItem("city", cityResults);
+     //for loop?
+     $(function () {
+        $("#button-1").append(JSON.stringify(cityResults[i]))
+        $("#button-2").append(JSON.stringify(cityResults[i]))
+        $("#button-3").append(JSON.stringify())
+        $("#button-4").append(JSON.stringify())
+        $("#button-5").append(JSON.stringify())
+     });
+    }
+ })
