@@ -46,8 +46,8 @@ searchBtn.on("click", function (event) {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(queryURL);
-            console.log(response)
+            //console.log(queryURL);
+            //console.log(response)
             var cityName = response.city.name;
             var date = response.list[0].dt_txt;
             var temp = response.list[0].main.temp;
@@ -55,36 +55,32 @@ searchBtn.on("click", function (event) {
             var humidity = response.list[0].main.humidity;
             var icon = response.list[0].weather[0].description;
           
-            //today's weather
-            $("#city").append(JSON.stringify(cityName));
-            $("#today-date").append(JSON.stringify(date));
-            $("#today-temp").append(JSON.stringify(temp - 273.15));
-            $("#today-wind").append(JSON.stringify(wind));
-            $("#today-humid").append(JSON.stringify(humidity));
-            $("#today-icon").append(JSON.stringify(icon));
-           // clear input for new search
-           //click event on search button to clear previous search results.
+            //today's weather card input 
+            $("#city").append(cityName);
+            $("#today-date").append(date);
+            $("#today-temp").append((temp - 273.15).toFixed(1));
+            $("#today-wind").append(wind);
+            $("#today-humid").append(humidity);
+            $("#today-icon").append(icon);
 
-        })
-        $.ajax({
-            url: queryURL,
-            method: "GET"
-        }).then(function (response) {
+            var date4 = response.list[4].dt_txt;
+            var temp4 = response.list[4].main.temp;
+            var wind4 = response.list[4].wind.speed;
+            var humidity4 = response.list[4].main.humidity;
+            var icon4 = response.list[4].weather[4].description;
 
-            var date = response.list[4].dt_txt;
-            var temp = response.list[4].main.temp;
-            var wind = response.list[4].wind.speed;
-            var humidity = response.list[4].main.humidity;
-            var icon = response.list[4].weather[4].description;
-
-            $("#day4-date").append(JSON.stringify(date));
-            $("#day4-temp").append(JSON.stringify(temp - 273.15));
-            $("#day4-wind").append(JSON.stringify(wind));
-            $("#day4-humid").append(JSON.stringify(humidity));
-            $("#day4-icon").append(JSON.stringify(icon));
+            $("#day4-date").append(JSON.stringify(date4));
+            $("#day4-temp").append(JSON.stringify(temp4 - 273.15).toFixed(1));
+            $("#day4-wind").append(JSON.stringify(wind4));
+            $("#day4-humid").append(JSON.stringify(humidity4));
+            $("#day4-icon").append(JSON.stringify(icon4));
         })
     })
 })
+      
+       // clear input for new search
+           //click event on search button to clear previous search results.
+
 
 
     //append previous searches into buttons;
@@ -93,15 +89,14 @@ searchBtn.on("click", function (event) {
      event.preventDefault();
      cityResults = $("#search-input").val()
 
-     for ( i = 0; i < cityResults.length; i++) {
-     localStorage.setItem("city", cityResults);
+     //for ( i = 0; i < cityResults.length; i++) {
+     //localStorage.setItem("city", cityResults[i]);
      //for loop?
      $(function () {
-        $("#button-1").append(JSON.stringify(cityResults[i]))
-        $("#button-2").append(JSON.stringify(cityResults[i]))
+        $("#button-1").append(JSON.stringify(cityResults))
+        $("#button-2").append(JSON.stringify())
         $("#button-3").append(JSON.stringify())
         $("#button-4").append(JSON.stringify())
         $("#button-5").append(JSON.stringify())
      });
-    }
- })
+    })
