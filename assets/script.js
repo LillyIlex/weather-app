@@ -15,8 +15,13 @@ $(document).ready(function () {
 
 //add event listener for search button
 var searchBtn = $("#search-button")
-var city = $("#search-input:text")
-var search
+var city = $("#search-input")
+var searchResults
+var cityResults
+
+
+// CLEAR STORAGE ON PAGE LOAD
+localStorage.clear() 
 
 
 searchBtn.on("click", function (event) {
@@ -24,8 +29,13 @@ searchBtn.on("click", function (event) {
     //value of text inputted saved as new var
     var cityResults = city.val()
     console.log(cityResults)
+    localStorage.setItem("search1", cityResults);
+    $("#button-1").append(localStorage.getItem("search1"))
+    city.val("")
 
-    var limit = 3
+ 
+
+    var limit = 5
     var apiKey = "bea3b67283dd3660e8a767a5a906068a"
     var geoURL = "https://api.openweathermap.org/geo/1.0/direct?q=%7Bcity=" + cityResults + "&limit=" + limit + "&appid=" + apiKey
     console.log(geoURL);
@@ -37,7 +47,7 @@ searchBtn.on("click", function (event) {
     }).then(function (response) {
         console.log(response)
 
-        var lat = response[0].lat.toFixed(2)
+        var lat = response[0].lat.toFixed(2) //changes to str from int
         var lon = response[0].lon.toFixed(2)
 
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
@@ -46,8 +56,7 @@ searchBtn.on("click", function (event) {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            //console.log(queryURL);
-            //console.log(response)
+    
             var cityName = response.city.name;
             var date = response.list[0].dt_txt;
             var temp = response.list[0].main.temp;
@@ -56,14 +65,17 @@ searchBtn.on("click", function (event) {
             var icon = response.list[0].weather[0].description;
           
             //today's weather card input 
+            //not working
             $("#city").append(cityName);
             $("#today-date").append(date);
             $("#today-temp").append((temp - 273.15).toFixed(1));
             $("#today-wind").append(wind);
             $("#today-humid").append(humidity);
-            $("#today-icon").append(icon);
+            $("#today-icon").append(icon); 
+            
+            cityTextBox.val()
 
-            var date4 = response.list[4].dt_txt;
+           /* var date4 = response.list[4].dt_txt;
             var temp4 = response.list[4].main.temp;
             var wind4 = response.list[4].wind.speed;
             var humidity4 = response.list[4].main.humidity;
@@ -73,30 +85,67 @@ searchBtn.on("click", function (event) {
             $("#day4-temp").append(JSON.stringify(temp4 - 273.15).toFixed(1));
             $("#day4-wind").append(JSON.stringify(wind4));
             $("#day4-humid").append(JSON.stringify(humidity4));
-            $("#day4-icon").append(JSON.stringify(icon4));
+            $("#day4-icon").append(JSON.stringify(icon4)); */
         })
-    })
-})
+   
       
-       // clear input for new search
-           //click event on search button to clear previous search results.
+    }) 
+         //SEARCH 2
+        $("#search-button").on("click", function (event) {
+            event.preventDefault();
+            var cityResults2 = $("#search-input").val()
+          localStorage.setItem("search2", cityResults2);
+            city.val("")
+            $("#button-2").append(localStorage.getItem("search2"))
+           });
+
+           //SEARCH 3
+           $("#search-button").on("click", function (event) {
+            event.preventDefault();
+            var cityResults3 = $("#search-input").val()
+          localStorage.setItem("search3", cityResults3);
+            city.val("")
+            $("#button-3").append(localStorage.getItem("search3"))
+           })
+      
+    
+    
+    
+    
+    /*
+    $(function () {
+        //var searchResults = localStorage.getItem("search1")
+        $("#button-1").append(localStorage.getItem("search1"))
+        $("#button-2").append(localStorage.getItem("search2"))
+        $("#button-3").append(localStorage.getItem("search3"))
+        $("#button-4").append(localStorage.getItem("search4"))
+        $("#button-5").append(localStorage.getItem("search5"))
+
+    }); */
+    $("#clear-button").on("click", function () {
+        localStorage.clear()
+        $("#button-1.innerHTML").val("")
+        $("#button-2").val("")
+        $("#button-3").val("")
+        $("##button-4").val("")
+        $("#button-5").val("")
+    });
+})
+
 
 
 
     //append previous searches into buttons;
 
- $("#search-button").on("click", function (event) {
-     event.preventDefault();
-     cityResults = $("#search-input").val()
 
-     //for ( i = 0; i < cityResults.length; i++) {
-     //localStorage.setItem("city", cityResults[i]);
-     //for loop?
-     $(function () {
-        $("#button-1").append(JSON.stringify(cityResults))
-        $("#button-2").append(JSON.stringify())
-        $("#button-3").append(JSON.stringify())
-        $("#button-4").append(JSON.stringify())
-        $("#button-5").append(JSON.stringify())
-     });
-    })
+
+    //SECOND SEARCH
+    /*
+searchBtn.on("click", function (event) {
+    event.preventDefault()
+    $(".card-text").val("")
+    //value of text inputted saved as new var
+    var cityResults = city.val()
+    console.log(cityResults)
+    localStorage.setItem("search2", cityResults);
+ */
