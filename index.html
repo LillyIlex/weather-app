@@ -30,7 +30,7 @@
           <div class="form-inline form-group">
             <div class="input-group">
               <input class="form-input weather-search" type="text" id="search-input" placeholder="Enter city here"
-                aria-labelledby="form-heading" aria-controls="today forecast"/>
+                aria-labelledby="form-heading" aria-controls="today forecast" />
               <div class="input-group-append">
                 <button type="submit" class="btn search-button" id="search-button" aria-label="submit search">
                   Search
@@ -52,8 +52,9 @@
             <button type="button" class="btn btn-primary" id="button-3" data-state="hidden"></button><br>
             <button type="button" class="btn btn-primary" id="button-4" data-state="hidden"></button><br>
             <button type="button" class="btn btn-primary" id="button-5" data-state="hidden"></button><br>
-            <button type="button" class="btn btn-primary" id="clear-button" data-state="hidden"> Clear Search History</button><br>
           </div>
+          <button type="button" class="btn btn-primary" id="clear-button" data-state="hidden"> Clear Search
+            History</button><br>
         </aside>
         <div class="col-lg-6 pb-3">
           <section id="today" class="mt-3" role="region" aria-live="polite">Today's Weather</section>
@@ -61,10 +62,10 @@
             <div class="card-body">
               <h5 class="card-title" id="city"></h5>
               <h6 class="card-subtitle mb-2 text-muted" id="today-icon">*icon*</h6>
-              <p class="card-text" id="today-date">Date: </p>
-              <p class="card-text" id="today-temp">Temp (c): </p>
-              <p class="card-text" id="today-wind">Wind (mph): </p>
-              <p class="card-text" id="today-humid">Humidity (%): </p>
+              <p class="card-text">Date: <span id="today-date"> </span> </p>
+              <p class="card-text">Temp (c): <span id="today-temp"> </span> </p>
+              <p class="card-text">Wind (mph): <span id="today-wind"></span> </p>
+              <p class="card-text">Humidity (%): <span id="today-humid"> </span> </p>
             </div>
           </div>
         </div>
@@ -74,10 +75,7 @@
     <section>
       <div class="container-fluid">
         <div class="row">
-
         </div>
-
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-2 pb-3">

@@ -4,7 +4,7 @@ var datetime = null,
 
 var update = function () {
     date = moment(new Date())
-    datetime.html(date.format('dddd, MMMM Do YYYY, h:mm a'));
+    datetime.html(date.format('dddd, Do MMMM YYYY, h:mm a'));
 };
 $(document).ready(function () {
     datetime = $('#currentDay')
@@ -97,6 +97,7 @@ searchBtn.on("click", function (event) {
           localStorage.setItem("search2", cityResults2);
             city.val("")
             $("#button-2").append(localStorage.getItem("search2"))
+
            });
 
            //SEARCH 3
@@ -106,12 +107,16 @@ searchBtn.on("click", function (event) {
           localStorage.setItem("search3", cityResults3);
             city.val("")
             $("#button-3").append(localStorage.getItem("search3"))
+
+            $("#city").empty();
+            $("#today-date").empty();
+            $("#today-temp").empty();
+            $("#today-wind").empty();
+            $("#today-humid").empty();
+            $("#today-icon").empty();
            })
       
-    
-    
-    
-    
+
     /*
     $(function () {
         //var searchResults = localStorage.getItem("search1")
