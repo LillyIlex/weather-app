@@ -72,33 +72,72 @@ searchBtn.on("click", function (event) {
             $("#today-wind").append(wind);
             $("#today-humid").append(humidity);
             $("#today-icon").append(icon); 
-            
-            cityTextBox.val()
 
-           /* var date4 = response.list[4].dt_txt;
+           var date4 = response.list[4].dt_txt;
             var temp4 = response.list[4].main.temp;
             var wind4 = response.list[4].wind.speed;
             var humidity4 = response.list[4].main.humidity;
             var icon4 = response.list[4].weather[4].description;
 
-            $("#day4-date").append(JSON.stringify(date4));
-            $("#day4-temp").append(JSON.stringify(temp4 - 273.15).toFixed(1));
+            $("#day4-date").append(date4);
+            $("#day4-temp").append(temp4 - 273.15).toFixed(1);
             $("#day4-wind").append(JSON.stringify(wind4));
             $("#day4-humid").append(JSON.stringify(humidity4));
-            $("#day4-icon").append(JSON.stringify(icon4)); */
+            $("#day4-icon").append(icon4); 
         })
    
       
     }) 
          //SEARCH 2
         $("#search-button").on("click", function (event) {
-            event.preventDefault();
+             event.preventDefault();
+     
+          
+            $.ajax({
+        url: geoURL,
+        method: "GET"
+    }).then(function (response) {
+        console.log(response)
+
+        var lat = response[0].lat.toFixed(2) //changes to str from int
+        var lon = response[0].lon.toFixed(2)
+
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+    
+            var cityName = response.city.name;
+            var date = response.list[0].dt_txt;
+            var temp = response.list[0].main.temp;
+            var wind = response.list[0].wind.speed;
+            var humidity = response.list[0].main.humidity;
+            var icon = response.list[0].weather[0].description;
+          
+            //today's weather card input 
+            $("#city").empty();
+            $("#today-date").empty();
+            $("#today-temp").empty();
+            $("#today-wind").empty();
+            $("#today-humid").empty();
+            $("#today-icon").empty();
+
+            $("#city").append(cityName);
+            $("#today-date").append(date);
+            $("#today-temp").append((temp - 273.15).toFixed(1));
+            $("#today-wind").append(wind);
+            $("#today-humid").append(humidity);
+            $("#today-icon").append(icon); 
+
             var cityResults2 = $("#search-input").val()
           localStorage.setItem("search2", cityResults2);
             city.val("")
             $("#button-2").append(localStorage.getItem("search2"))
 
            });
+        })
 
            //SEARCH 3
            $("#search-button").on("click", function (event) {
@@ -129,28 +168,19 @@ searchBtn.on("click", function (event) {
     }); */
     $("#clear-button").on("click", function () {
         localStorage.clear()
-        $("#button-1.innerHTML").val("")
-        $("#button-2").val("")
-        $("#button-3").val("")
-        $("##button-4").val("")
-        $("#button-5").val("")
+        $("#button-1").empty()
+        $("#button-2").empty()
+        $("#button-3").empty()
+        $("#button-4").empty()
+        $("#button-5").empty()
     });
 })
 
 
-
-
     //append previous searches into buttons;
-
-
-
-    //SECOND SEARCH
-    /*
-searchBtn.on("click", function (event) {
-    event.preventDefault()
-    $(".card-text").val("")
-    //value of text inputted saved as new var
-    var cityResults = city.val()
-    console.log(cityResults)
-    localStorage.setItem("search2", cityResults);
- */
+    $("#button-1").click(function () {
+        $("#balanceDisplay").empty();
+        var savedKey = this.textContent;
+        var walletURL = "https://api.etherscan.io/api?module=account&action=balance&address=" + savedKey + "&tag=latest&apikey=" + apiKey;
+    })
+})
